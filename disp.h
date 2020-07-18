@@ -14,7 +14,7 @@ class Disp {
 		bool open = false;
 
 		Disp(const char* title, int wd, int ht) {
-			SDL_Init(SDL_INIT_EVERYTHING);
+			SDL_Init(SDL_INIT_VIDEO);
 
 			SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 			SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
