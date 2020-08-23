@@ -33,12 +33,14 @@ class Disp {
 				std::cerr << "Glew failed to initialize" << std::endl;
 			}
 
+			glEnable(GL_DEPTH_TEST);
+
 			open = true;
 		}
 
 		void clear(float r, float g, float b, float a) {
 			glClearColor(r, g, b, a);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 
 		void update() {
