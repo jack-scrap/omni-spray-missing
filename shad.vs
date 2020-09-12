@@ -7,10 +7,10 @@ uniform mat4
 	view,
 	model;
 
-out vec3 colFrag;
+out vec3 _pos;
 
 void main() {
 	gl_Position = proj * view * model * vec4(pos, 1.0);
 
-	colFrag = pos;
+	_pos = pos;
 }

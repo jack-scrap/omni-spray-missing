@@ -1,8 +1,8 @@
 #version 400
 
-in vec3 colFrag;
+in vec3 _pos;
 out vec4 col;
 
 void main() {
-	col = vec4(colFrag, 1.0);
+	col = vec4(_pos, 1.0);
 }
