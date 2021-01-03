@@ -81,9 +81,9 @@ int main() {
 
 	// matrix
 	glm::mat4
-		proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f),
+		model = glm::mat4(1.0f),
 		view = glm::lookAt(glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)),
-		model = glm::mat4(1.0f);
+		proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
 	// shader
 	Prog prog("shad", "shad");
@@ -95,9 +95,9 @@ int main() {
 
 	/// uniform
 	GLint
-		uniProj = glGetUniformLocation(prog._id, "proj"),
-		uniView = glGetUniformLocation(prog._id, "view"),
-		uniModel = glGetUniformLocation(prog._id, "model");
+		uniModel = glGetUniformLocation(prog._id, "model"),
+	 	uniView = glGetUniformLocation(prog._id, "view"),
+	 	uniProj = glGetUniformLocation(prog._id, "proj");
 
 	// initialize
 	prog.use();

@@ -3,9 +3,9 @@
 in vec3 pos;
 
 uniform mat4
-	proj,
+	model,
 	view,
-	model;
+	proj;
 
 out vec3 _pos;
 
