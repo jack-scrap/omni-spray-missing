@@ -50,8 +50,6 @@ Prog::Prog(std::string vtx, std::string frag) {
 	glAttachShader(_id, _vtx._id);
 	glAttachShader(_id, _frag._id);
 	glLinkProgram(_id);
-
-	glBindFragDataLocation(_id, 0, "col");
 }
 
 void Prog::use() {
