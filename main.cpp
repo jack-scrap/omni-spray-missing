@@ -20,7 +20,7 @@ int main() {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	GLfloat vtc[] = {
+	GLfloat vtc[3 * 2 * 2 * 3 * 3] = {
 		// back
 		-1.0, -1.0, -1.0,
 		1.0, -1.0, -1.0,
@@ -114,7 +114,7 @@ int main() {
 
 		disp.clear(0, 0, 0, 1);
 
-		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+		glDrawArrays(GL_TRIANGLES, 0, 3 * 2 * 2 * 3);
 
 		disp.update();
 	}
