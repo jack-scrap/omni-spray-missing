@@ -99,7 +99,7 @@ std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
 }
 
 int main() {
-	Disp disp("asdf", 1000, 1000);
+	Disp disp("asdf", 1600, 1710);
 
 	// data
 	GLuint vao;
