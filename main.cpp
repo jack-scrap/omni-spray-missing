@@ -7,6 +7,11 @@
 #include "prog.h"
 #include "util.h"
 
+static constexpr glm::vec3 col[2] = {
+	glm::vec3(38, 38, 38),
+	glm::vec3(255, 142, 65)
+};
+
 int main() {
 	Disp disp("asdf", 1000, 1000);
 
@@ -54,7 +59,7 @@ int main() {
 			}
 		}
 
-		disp.clear(0, 0, 0, 1);
+		disp.clear(col[false].r / 255.0, col[false].g / 255.0, col[false].b / 255.0, 1);
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
