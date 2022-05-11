@@ -120,7 +120,7 @@ int main() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
-	const GLfloat scaleFac = 0.1;
+	const GLfloat scaleFac = 1.0;
 
 	glm::mat4 model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(-1.0, 1.0, 0.0));
