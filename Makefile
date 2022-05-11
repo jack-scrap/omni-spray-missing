@@ -5,8 +5,10 @@ OBJ_STATIC=$(patsubst %, %.o, $(STATIC))
 
 GL=-lGLEW -lGL
 SDL=-lSDL2
+PNG=-lpng
 LDFLAGS+=$(SDL)
 LDFLAGS+=$(GL)
+LDFLAGS+=$(PNG)
 
 .PHONY: clean
 
