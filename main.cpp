@@ -21,9 +21,9 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	GLfloat vtc[] = {
-		-1.0, -1.0, -1.0,
-		1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0
+		-1.0, -1.0,
+		1.0, -1.0,
+		-1.0, 1.0
 	};
 	glBufferData(GL_ARRAY_BUFFER, sizeof vtc, vtc, GL_STATIC_DRAW);
 
@@ -35,7 +35,7 @@ int main() {
 
 	/// attribute
 	GLint attrPos = glGetAttribLocation(prog._id, "pos");
-	glVertexAttribPointer(attrPos, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
+	glVertexAttribPointer(attrPos, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
 	glEnableVertexAttribArray(attrPos);
 
 	/// uniform
