@@ -8,7 +8,7 @@
 #include "util.h"
 
 int main() {
-	Disp disp("asdf", 800, 600);
+	Disp disp("asdf", 1000, 1000);
 
 	// data
 	GLuint vao;
