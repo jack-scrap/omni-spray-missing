@@ -76,6 +76,26 @@ std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 	return _;
 }
 
+std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
+	std::vector<GLushort> _;
+
+	std::vector<std::string> buff = rd(fName + ".obj");
+
+	for (int l = 0; l < buff.size(); l++) {
+		std::vector<std::string> tok = split(buff[l], ' ');
+
+		if (tok[0] == "f") {
+			for (int i = 1; i < 1 + 3; i++) {
+				std::vector<std::string> type = split(tok[i], '/');
+
+				_.push_back(std::stoi(type[attr]) - 1);
+			}
+		}
+	}
+
+	return _;
+}
+
 int main() {
 	Disp disp("asdf", 1000, 1000);
 
@@ -91,6 +111,13 @@ int main() {
 
 	std::vector<GLfloat> vtc = rdAttr("a", 0);
 	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
+
+	GLuint ibo;
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+	std::vector<GLushort> idc = rdIdc("a", 0);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
 	const GLfloat scaleFac = 0.1;
@@ -124,7 +151,7 @@ int main() {
 
 		disp.clear(col[false].r / 255.0, col[false].g / 255.0, col[false].b / 255.0, 1);
 
-		glDrawArrays(GL_TRIANGLES, 0, vtc.size() / 3);
+		glDrawElements(GL_TRIANGLES, idc.size(), GL_UNSIGNED_SHORT, (GLvoid*) 0);
 
 		disp.update();
 	}
