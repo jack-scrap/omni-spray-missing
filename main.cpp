@@ -153,7 +153,7 @@ int main() {
 			}
 		}
 
-		disp.clear(col[false].r / 255.0, col[false].g / 255.0, col[false].b / 255.0, 1);
+		disp.clear(col[true].r / 255.0, col[true].g / 255.0, col[true].b / 255.0, 1);
 
 		glDrawElements(GL_TRIANGLES, idc.size(), GL_UNSIGNED_SHORT, (GLvoid*) 0);
 
