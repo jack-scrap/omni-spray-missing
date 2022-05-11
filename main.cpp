@@ -17,6 +17,8 @@ static constexpr glm::vec3 col[2] = {
 	glm::vec3(255, 142, 65)
 };
 
+const GLfloat margin = 0.16;
+
 std::vector<std::string> split(std::string buff, char delim) {
 	std::vector<std::string> tok;
 
@@ -124,6 +126,7 @@ int main() {
 
 	glm::mat4 model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(-1.0, 1.0, 0.0));
+	model = glm::translate(model, glm::vec3(margin * 2, -(margin * 2), 0.0));
 	model = glm::scale(model, glm::vec3(scaleFac, scaleFac, scaleFac));
 
 	// shader
