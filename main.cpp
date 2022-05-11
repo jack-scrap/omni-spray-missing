@@ -93,7 +93,10 @@ int main() {
 	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
 
 	// matrix
+	const GLfloat scaleFac = 0.1;
+
 	glm::mat4 model = glm::mat4(1.0);
+	model = glm::scale(model, glm::vec3(scaleFac, scaleFac, scaleFac));
 
 	// shader
 	Prog prog("shad", "shad");
