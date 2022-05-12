@@ -158,6 +158,8 @@ static void screenshot_png(const char *filename, unsigned int width, unsigned in
 int main() {
 	Disp disp("asdf", 160, 171);
 
+	char c = 'a';
+
 	// data
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -168,18 +170,18 @@ int main() {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	std::vector<GLfloat> vtc = rdAttr("a", 0);
+	std::vector<GLfloat> vtc = rdAttr(std::string(1, c), 0);
 	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
 
 	GLuint ibo;
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-	std::vector<GLushort> idc = rdIdc("a", 0);
+	std::vector<GLushort> idc = rdIdc(std::string(1, c), 0);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
-	const GLfloat scaleFac = 1.0;
+	const GLfloat scaleFac = 0.8;
 
 	glm::mat4 model = glm::mat4(1.0);
 	model = glm::translate(model, glm::vec3(-1.0, 1.0, 0.0));
@@ -209,7 +211,7 @@ int main() {
 	disp.update();
 
 	GLubyte* pixels = NULL;
-	screenshot_png("asdf.png", 160, 171, &pixels, &png_bytes, &png_rows);
+	screenshot_png(std::string(std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
 
 	SDL_Delay(1000);
 }
