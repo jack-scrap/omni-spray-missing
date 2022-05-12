@@ -16,8 +16,10 @@
 
 const GLfloat margin = 0.16;
 
-enum Constants { scr_MAX_FILENAME = 256 };
-static GLubyte *pixels = NULL;
+enum Constants {
+	scr_MAX_FILENAME = 256
+};
+static GLubyte* pixels = NULL;
 static GLuint fbo;
 static GLuint rbo_color;
 static GLuint rbo_depth;
