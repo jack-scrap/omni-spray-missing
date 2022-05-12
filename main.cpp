@@ -55,17 +55,7 @@ static void scrPng(const char *filename, unsigned int width, unsigned int height
 	if (!info) abort();
 	if (setjmp(png_jmpbuf(png))) abort();
 	png_init_io(png, f);
-	png_set_IHDR(
-			png,
-			info,
-			width,
-			height,
-			8,
-			PNG_COLOR_TYPE_RGBA,
-			PNG_INTERLACE_NONE,
-			PNG_COMPRESSION_TYPE_DEFAULT,
-			PNG_FILTER_TYPE_DEFAULT
-			);
+	png_set_IHDR(png, info, width, height, 8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 	png_write_info(png, info);
 	png_write_image(png, *png_rows);
 	png_write_end(png, NULL);
