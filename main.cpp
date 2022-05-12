@@ -211,7 +211,7 @@ int main() {
 	disp.update();
 
 	GLubyte* pixels = NULL;
-	scrPng(std::string(std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
+	scrPng(std::string(std::string("o/") + std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
 
 	SDL_Delay(1000);
 }

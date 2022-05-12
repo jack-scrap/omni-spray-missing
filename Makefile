@@ -13,9 +13,9 @@ LDFLAGS+=$(SDL)
 LDFLAGS+=$(GL)
 LDFLAGS+=$(PNG)
 
-.PHONY: mk_build clean
+.PHONY: mk_build mk_o clean
 
-all: mk_build make
+all: mk_build mk_o make
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(CXX) -c $< -o $@ $(LDFLAGS)
@@ -28,6 +28,9 @@ make: $(OBJ_STATIC) $(HDR)
 
 mk_build:
 	mkdir -p $(BUILDDIR)
+
+mk_o:
+	mkdir -p o
 
 clean:
 	rm $(BUILDDIR)/*.o a.out
