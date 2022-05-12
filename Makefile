@@ -1,5 +1,6 @@
 CXX=g++
 
+SRCDIR=.
 BUILDDIR=build
 
 STATIC=main disp prog util
@@ -16,10 +17,10 @@ LDFLAGS+=$(PNG)
 
 all: mk_build make
 
-$(BUILDDIR)/%.o: %.cpp %.h
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
-$(BUILDDIR)/main.o: main.cpp
+$(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
 make: $(OBJ_STATIC) $(HDR)
