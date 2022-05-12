@@ -12,7 +12,7 @@ LDFLAGS+=-lGLEW -lGL
 LDFLAGS+=-lSDL2
 LDFLAGS+=-lpng
 
-.PHONY: mk_build mk_o clean
+.PHONY: make mk_build mk_o clean
 
 all: mk_build mk_o make
 
