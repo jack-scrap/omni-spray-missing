@@ -155,10 +155,22 @@ static void scrPng(const char *filename, unsigned int width, unsigned int height
 	fclose(f);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 	Disp disp("asdf", 160, 171);
 
-	char c = 'a';
+	if (argc != 2) {
+		std::cout << "Error: Wrong number of arguments" << std::endl;
+
+		return 1;
+	}
+
+	if (strlen(argv[1]) > 1) {
+		std::cout << "Error: Length of argument longer than one" << std::endl;
+
+		return 1;
+	}
+
+	char c = argv[1][0];
 
 	// data
 	GLuint vao;
