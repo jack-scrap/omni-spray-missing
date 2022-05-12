@@ -13,8 +13,7 @@
 #include "prog.h"
 #include "util.h"
 #include "col.h"
-
-const GLfloat margin = 0.16;
+#include "layout.h"
 
 enum Constants {
 	scr_MAX_FILENAME = 256
