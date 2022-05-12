@@ -9,10 +9,7 @@ std::string util::rd(std::string name) {
 	in.open("./" + name);
 
 	std::string total;
-	for (
-		std::string l;
-		std::getline(in, l);
-	) {
+	for (std::string l; std::getline(in, l);) {
 		total += l + "\n";
 	}
 
