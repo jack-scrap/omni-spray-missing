@@ -20,7 +20,7 @@ static constexpr glm::vec3 col[2] = {
 
 const GLfloat margin = 0.16;
 
-enum Constants { SCREENSHOT_MAX_FILENAME = 256 };
+enum Constants { scr_MAX_FILENAME = 256 };
 static GLubyte *pixels = NULL;
 static GLuint fbo;
 static GLuint rbo_color;
@@ -118,7 +118,7 @@ std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
 /* Adapted from https://github.com/cirosantilli/cpp-cheat/blob/19044698f91fefa9cb75328c44f7a487d336b541/png/open_manipulate_write.c */
 static png_byte *png_bytes = NULL;
 static png_byte **png_rows = NULL;
-static void screenshot_png(const char *filename, unsigned int width, unsigned int height, GLubyte **pixels, png_byte **png_bytes, png_byte ***png_rows) {
+static void scrPng(const char *filename, unsigned int width, unsigned int height, GLubyte **pixels, png_byte **png_bytes, png_byte ***png_rows) {
 	size_t i, nvals;
 	const size_t format_nchannels = 4;
 	FILE *f = fopen(filename, "wb");
@@ -211,7 +211,7 @@ int main() {
 	disp.update();
 
 	GLubyte* pixels = NULL;
-	screenshot_png(std::string(std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
+	scrPng(std::string(std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
 
 	SDL_Delay(1000);
 }
