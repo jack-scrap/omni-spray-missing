@@ -1,7 +1,9 @@
 CXX=g++
 
+BUILDDIR=build
+
 STATIC=main disp prog util
-OBJ_STATIC=$(patsubst %, %.o, $(STATIC))
+OBJ_STATIC=$(patsubst %, $(BUILDDIR)/%.o, $(STATIC))
 
 GL=-lGLEW -lGL
 SDL=-lSDL2
@@ -10,18 +12,21 @@ LDFLAGS+=$(SDL)
 LDFLAGS+=$(GL)
 LDFLAGS+=$(PNG)
 
-.PHONY: clean
+.PHONY: mk_build clean
 
-all: make
+all: mk_build make
 
-%.o: %.cpp %.h
+$(BUILDDIR)/%.o: %.cpp %.h
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
-main.o: main.cpp
+$(BUILDDIR)/main.o: main.cpp
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
 make: $(OBJ_STATIC) $(HDR)
 	$(CXX) $^ $(LDFLAGS)
 
+mk_build:
+	mkdir -p $(BUILDDIR)
+
 clean:
-	rm *.o a.out
+	rm $(BUILDDIR)/*.o a.out
