@@ -12,11 +12,7 @@
 #include "disp.h"
 #include "prog.h"
 #include "util.h"
-
-static constexpr glm::vec3 col[2] = {
-	glm::vec3(38, 38, 38),
-	glm::vec3(255, 142, 65)
-};
+#include "col.h"
 
 const GLfloat margin = 0.16;
 
