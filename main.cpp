@@ -66,7 +66,7 @@ std::vector<std::string> rd(std::string fName) {
 std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 	std::vector<GLfloat> _;
 
-	std::vector<std::string> buff = rd(fName + ".obj");
+	std::vector<std::string> buff = rd("res/" + fName + ".obj");
 
 	const std::string id[3] = {
 		"v",
@@ -98,7 +98,7 @@ std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
 	std::vector<GLushort> _;
 
-	std::vector<std::string> buff = rd(fName + ".obj");
+	std::vector<std::string> buff = rd("res/" + fName + ".obj");
 
 	for (int l = 0; l < buff.size(); l++) {
 		std::vector<std::string> tok = split(buff[l], ' ');
