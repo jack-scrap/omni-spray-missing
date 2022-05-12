@@ -33,25 +33,10 @@ static unsigned int width = 128;
 #define FFMPEG_BIT (1 << 2)
 static unsigned int output_formats = PPM_BIT | LIBPNG_BIT | FFMPEG_BIT;
 
-std::vector<std::string> rd(std::string fName) {
-	std::ifstream in;
-	in.open(fName);
-
-	std::vector<std::string> cont;
-
-	for (std::string l; std::getline(in, l);) {
-		cont.push_back(l);
-	}
-
-	in.close();
-
-	return cont;
-}
-
 std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 	std::vector<GLfloat> _;
 
-	std::vector<std::string> buff = rd("res/" + fName + ".obj");
+	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
 
 	const std::string id[3] = {
 		"v",
@@ -83,7 +68,7 @@ std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
 	std::vector<GLushort> _;
 
-	std::vector<std::string> buff = rd("res/" + fName + ".obj");
+	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
 
 	for (int l = 0; l < buff.size(); l++) {
 		std::vector<std::string> tok = util::split(buff[l], ' ');

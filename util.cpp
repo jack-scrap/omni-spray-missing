@@ -4,7 +4,12 @@
 
 #include "util.h"
 
-std::string util::rd(std::string name) {
+template <typename T>
+T util::rd(std::string fName) {
+}
+
+template <>
+std::string util::rd<std::string>(std::string name) {
 	std::ifstream in;
 	in.open("./" + name);
 
@@ -16,6 +21,22 @@ std::string util::rd(std::string name) {
 	in.close();
 
 	return total;
+}
+
+template <>
+std::vector<std::string> util::rd(std::string fName) {
+	std::ifstream in;
+	in.open(fName);
+
+	std::vector<std::string> cont;
+
+	for (std::string l; std::getline(in, l);) {
+		cont.push_back(l);
+	}
+
+	in.close();
+
+	return cont;
 }
 
 std::vector<std::string> util::split(std::string buff, char delim) {
