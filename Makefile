@@ -6,12 +6,9 @@ BUILDDIR=build
 STATIC=main disp prog util
 OBJ_STATIC=$(patsubst %, $(BUILDDIR)/%.o, $(STATIC))
 
-GL=-lGLEW -lGL
-SDL=-lSDL2
-PNG=-lpng
-LDFLAGS+=$(SDL)
-LDFLAGS+=$(GL)
-LDFLAGS+=$(PNG)
+LDFLAGS+=-lGLEW -lGL
+LDFLAGS+=-lSDL2
+LDFLAGS+=-lpng
 
 .PHONY: mk_build mk_o clean
 
