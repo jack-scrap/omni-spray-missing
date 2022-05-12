@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 
 #include "util.h"
 
@@ -49,4 +50,56 @@ std::vector<std::string> util::split(std::string buff, char delim) {
 	}
 
 	return tok;
+}
+
+std::vector<GLfloat> util::rdAttr(std::string fName, unsigned int attr) {
+	std::vector<GLfloat> _;
+
+	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
+
+	const std::string id[3] = {
+		"v",
+		"vt",
+		"vn"
+	};
+	const unsigned int sz[3] = {
+		3,
+		2,
+		3
+	};
+
+	for (int l = 0; l < buff.size(); l++) {
+		std::vector<std::string> tok = util::split(buff[l], ' ');
+
+		if (tok[0] == id[attr]) {
+			for (int i = 1; i < 1 + sz[attr]; i++) {
+				std::stringstream out;
+				out << std::fixed << std::setprecision(4) << std::stof(tok[i]);
+
+				_.push_back(std::stof(out.str()));
+			}
+		}
+	}
+
+	return _;
+}
+
+std::vector<GLushort> util::rdIdc(std::string fName, unsigned int attr) {
+	std::vector<GLushort> _;
+
+	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
+
+	for (int l = 0; l < buff.size(); l++) {
+		std::vector<std::string> tok = util::split(buff[l], ' ');
+
+		if (tok[0] == "f") {
+			for (int i = 1; i < 1 + 3; i++) {
+				std::vector<std::string> type = util::split(tok[i], '/');
+
+				_.push_back(std::stoi(type[attr]) - 1);
+			}
+		}
+	}
+
+	return _;
 }

@@ -33,58 +33,6 @@ static unsigned int width = 128;
 #define FFMPEG_BIT (1 << 2)
 static unsigned int output_formats = PPM_BIT | LIBPNG_BIT | FFMPEG_BIT;
 
-std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
-	std::vector<GLfloat> _;
-
-	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
-
-	const std::string id[3] = {
-		"v",
-		"vt",
-		"vn"
-	};
-	const unsigned int sz[3] = {
-		3,
-		2,
-		3
-	};
-
-	for (int l = 0; l < buff.size(); l++) {
-		std::vector<std::string> tok = util::split(buff[l], ' ');
-
-		if (tok[0] == id[attr]) {
-			for (int i = 1; i < 1 + sz[attr]; i++) {
-				std::stringstream out;
-				out << std::fixed << std::setprecision(4) << std::stof(tok[i]);
-
-				_.push_back(std::stof(out.str()));
-			}
-		}
-	}
-
-	return _;
-}
-
-std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
-	std::vector<GLushort> _;
-
-	std::vector<std::string> buff = util::rd<std::vector<std::string>>("res/" + fName + ".obj");
-
-	for (int l = 0; l < buff.size(); l++) {
-		std::vector<std::string> tok = util::split(buff[l], ' ');
-
-		if (tok[0] == "f") {
-			for (int i = 1; i < 1 + 3; i++) {
-				std::vector<std::string> type = util::split(tok[i], '/');
-
-				_.push_back(std::stoi(type[attr]) - 1);
-			}
-		}
-	}
-
-	return _;
-}
-
 /* Adapted from https://github.com/cirosantilli/cpp-cheat/blob/19044698f91fefa9cb75328c44f7a487d336b541/png/open_manipulate_write.c */
 static png_byte *png_bytes = NULL;
 static png_byte **png_rows = NULL;
@@ -152,14 +100,14 @@ int main(int argc, char* argv[]) {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	std::vector<GLfloat> vtc = rdAttr(std::string(1, c), 0);
+	std::vector<GLfloat> vtc = util::rdAttr(std::string(1, c), 0);
 	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
 
 	GLuint ibo;
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-	std::vector<GLushort> idc = rdIdc(std::string(1, c), 0);
+	std::vector<GLushort> idc = util::rdIdc(std::string(1, c), 0);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
