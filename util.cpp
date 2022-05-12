@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 #include "util.h"
 
@@ -18,4 +19,16 @@ std::string util::rd(std::string name) {
 	in.close();
 
 	return total;
+}
+
+std::vector<std::string> util::split(std::string buff, char delim) {
+	std::vector<std::string> tok;
+
+	std::stringstream s(buff);
+	std::string seg;
+	while (std::getline(s, seg, delim)) {
+		tok.push_back(seg);
+	}
+
+	return tok;
 }

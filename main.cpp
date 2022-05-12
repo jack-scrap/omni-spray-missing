@@ -33,18 +33,6 @@ static unsigned int width = 128;
 #define FFMPEG_BIT (1 << 2)
 static unsigned int output_formats = PPM_BIT | LIBPNG_BIT | FFMPEG_BIT;
 
-std::vector<std::string> split(std::string buff, char delim) {
-	std::vector<std::string> tok;
-
-	std::stringstream s(buff);
-	std::string seg;
-	while (std::getline(s, seg, delim)) {
-		tok.push_back(seg);
-	}
-
-	return tok;
-}
-
 std::vector<std::string> rd(std::string fName) {
 	std::ifstream in;
 	in.open(fName);
@@ -77,7 +65,7 @@ std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr) {
 	};
 
 	for (int l = 0; l < buff.size(); l++) {
-		std::vector<std::string> tok = split(buff[l], ' ');
+		std::vector<std::string> tok = util::split(buff[l], ' ');
 
 		if (tok[0] == id[attr]) {
 			for (int i = 1; i < 1 + sz[attr]; i++) {
@@ -98,11 +86,11 @@ std::vector<GLushort> rdIdc(std::string fName, unsigned int attr) {
 	std::vector<std::string> buff = rd("res/" + fName + ".obj");
 
 	for (int l = 0; l < buff.size(); l++) {
-		std::vector<std::string> tok = split(buff[l], ' ');
+		std::vector<std::string> tok = util::split(buff[l], ' ');
 
 		if (tok[0] == "f") {
 			for (int i = 1; i < 1 + 3; i++) {
-				std::vector<std::string> type = split(tok[i], '/');
+				std::vector<std::string> type = util::split(tok[i], '/');
 
 				_.push_back(std::stoi(type[attr]) - 1);
 			}
