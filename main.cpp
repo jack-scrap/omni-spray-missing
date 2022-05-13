@@ -60,7 +60,7 @@ bool scr(std::string filepath, SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer)
 }
 
 int main(int argc, char* argv[]) {
-	Disp disp("asdf", 160, 171);
+	Disp disp("asdf", 100, 111);
 
 	if (argc != 2) {
 		std::cout << "Error: Wrong number of arguments" << std::endl;
@@ -100,9 +100,6 @@ int main(int argc, char* argv[]) {
 	const GLfloat scaleFac = 1.0;
 
 	glm::mat4 model = glm::mat4(1.0);
-	model = glm::translate(model, glm::vec3(-1.0, 1.0, 0.0));
-	model = glm::translate(model, glm::vec3(margin * 2, -(margin * 2), 0.0));
-	model = glm::scale(model, glm::vec3(scaleFac, scaleFac, scaleFac));
 
 	// shader
 	Prog prog("shad", "shad");
