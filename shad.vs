@@ -6,7 +6,7 @@ uniform mat4 model;
 
 const float margin = 0.16;
 
-vec2 res = vec2(100, 111);
+vec2 res = vec2(100, 100);
 
 float aspect = res.x / res.y;
 
