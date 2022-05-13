@@ -7,7 +7,6 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include <png.h>
 
 #include "disp.h"
 #include "prog.h"
@@ -15,52 +14,49 @@
 #include "col.h"
 #include "layout.h"
 
-enum Constants {
-	scr_MAX_FILENAME = 256
-};
-static GLubyte* pixels = NULL;
-static GLuint fbo;
-static GLuint rbo_color;
-static GLuint rbo_depth;
-static int offscreen = 1;
-static unsigned int max_nframes = 128;
-static unsigned int nframes = 0;
-static unsigned int time0;
-static unsigned int height = 128;
-static unsigned int width = 128;
-#define PPM_BIT (1 << 0)
-#define LIBPNG_BIT (1 << 1)
-#define FFMPEG_BIT (1 << 2)
-static unsigned int output_formats = PPM_BIT | LIBPNG_BIT | FFMPEG_BIT;
+bool scr(std::string filepath, SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer) {
+	SDL_Surface* saveSurface = NULL;
+	SDL_Surface* infoSurface = NULL;
+	infoSurface = SDL_GetWindowSurface(SDLWindow);
+	if (infoSurface == NULL) {
+		std::cerr << "Failed to create info surface from window in save(string), SDL_GetError() - " << SDL_GetError() << "\n";
+	} else {
+		unsigned char* pixels = new (std::nothrow) unsigned char[infoSurface->w * infoSurface->h * infoSurface->format->BytesPerPixel];
+		if (!pixels) {
+			std::cerr << "Unable to allocate memory for screenshot pixel data buffer!\n";
 
-/* Adapted from https://github.com/cirosantilli/cpp-cheat/blob/19044698f91fefa9cb75328c44f7a487d336b541/png/open_manipulate_write.c */
-static png_byte *png_bytes = NULL;
-static png_byte **png_rows = NULL;
-static void scrPng(const char *filename, unsigned int width, unsigned int height, GLubyte **pixels, png_byte **png_bytes, png_byte ***png_rows) {
-	size_t i, nvals;
-	const size_t format_nchannels = 4;
-	FILE *f = fopen(filename, "wb");
-	nvals = format_nchannels * width * height;
-	*pixels = (GLubyte*) realloc(*pixels, nvals * sizeof(GLubyte));
-	*png_bytes = (png_byte*) realloc(*png_bytes, nvals * sizeof(png_byte));
-	*png_rows = (png_byte**) realloc(*png_rows, height * sizeof(png_byte*));
-	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, *pixels);
-	for (i = 0; i < nvals; i++)
-		(*png_bytes)[i] = (*pixels)[i];
-	for (i = 0; i < height; i++)
-		(*png_rows)[height - i - 1] = &(*png_bytes)[i * width * format_nchannels];
-	png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-	if (!png) abort();
-	png_infop info = png_create_info_struct(png);
-	if (!info) abort();
-	if (setjmp(png_jmpbuf(png))) abort();
-	png_init_io(png, f);
-	png_set_IHDR(png, info, width, height, 8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-	png_write_info(png, info);
-	png_write_image(png, *png_rows);
-	png_write_end(png, NULL);
-	png_destroy_write_struct(&png, &info);
-	fclose(f);
+			return false;
+		} else {
+			if (SDL_RenderReadPixels(SDLRenderer, &infoSurface->clip_rect, infoSurface->format->format, pixels, infoSurface->w * infoSurface->format->BytesPerPixel) != 0) {
+				std::cerr << "Failed to read pixel data from SDL_Renderer object. SDL_GetError() - " << SDL_GetError() << "\n";
+
+				delete[] pixels;
+
+				return false;
+			} else {
+				saveSurface = SDL_CreateRGBSurfaceFrom(pixels, infoSurface->w, infoSurface->h, infoSurface->format->BitsPerPixel, infoSurface->w * infoSurface->format->BytesPerPixel, infoSurface->format->Rmask, infoSurface->format->Gmask, infoSurface->format->Bmask, infoSurface->format->Amask);
+
+				if (saveSurface == NULL) {
+					std::cerr << "Couldn't create SDL_Surface from renderer pixel data. SDL_GetError() - " << SDL_GetError() << "\n";
+
+					delete[] pixels;
+
+					return false;
+				}
+
+				SDL_SaveBMP(saveSurface, filepath.c_str());
+				SDL_FreeSurface(saveSurface);
+				saveSurface = NULL;
+			}
+
+			delete[] pixels;
+		}
+
+		SDL_FreeSurface(infoSurface);
+		infoSurface = NULL;
+	}
+
+	return true;
 }
 
 int main(int argc, char* argv[]) {
@@ -130,6 +126,7 @@ int main(int argc, char* argv[]) {
 
 	disp.update();
 
-	GLubyte* pixels = NULL;
-	scrPng(std::string(std::string("o/") + std::string(1, c) + ".png").c_str(), 160, 171, &pixels, &png_bytes, &png_rows);
+	if (!scr(std::string(std::string("o/") + std::string(1, c) + ".bmp").c_str(), disp.win, disp.rend)) {
+		std::cout << "Error" << std::endl;
+	}
 }
