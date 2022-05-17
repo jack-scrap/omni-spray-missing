@@ -97,8 +97,6 @@ int main(int argc, char* argv[]) {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
-	const GLfloat scaleFac = 1.0;
-
 	glm::mat4 model = glm::mat4(1.0);
 
 	// shader
