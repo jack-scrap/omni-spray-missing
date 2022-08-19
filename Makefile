@@ -12,8 +12,7 @@ LDFLAGS+=-lGLEW -lGL
 LDFLAGS+=-lSDL2
 LDFLAGS+=-lpng
 
-.PHONY: make mk_build mk_o clean
-
+.PHONY: all
 all: mk_build mk_o make
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
@@ -22,14 +21,18 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 $(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
+.PHONY: make
 make: $(OBJ_STATIC) $(HDR)
 	$(CXX) $^ $(LDFLAGS)
 
+.PHONY: mk_build
 mk_build:
 	mkdir -p $(BUILDDIR)
 
+.PHONY: mk_o
 mk_o:
 	mkdir -p o
 
+.PHONY: clean
 clean:
 	rm $(BUILDDIR)/*.o a.out
