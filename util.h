@@ -19,4 +19,6 @@ namespace util {
 	std::vector<GLfloat> rdAttr(std::string fName, unsigned int attr);
 
 	std::vector<GLushort> rdIdc(std::string fName, unsigned int attr);
+
+	std::string glyphName(char c);
 }

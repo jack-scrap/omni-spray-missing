@@ -103,3 +103,180 @@ std::vector<GLushort> util::rdIdc(std::string fName, unsigned int attr) {
 
 	return _;
 }
+
+std::string util::glyphName(char c) {
+	std::string name;
+
+	// alpha-numeric
+	if (
+		(c >= '0' && c <= '9') ||
+		(c >= 'A' && c <= 'Z') ||
+		(c >= 'a' && c <= 'z')
+	) {
+		name = std::string(1, c);
+	} else {
+		switch (c) {
+			case ' ':
+				name = "spc";
+
+				break;
+
+			case '!':
+				name = "bang";
+
+				break;
+
+			case '"':
+				name = "dbl_quote";
+
+				break;
+
+			case '#':
+				name = "pound";
+
+				break;
+
+			case '$':
+				name = "dollar";
+
+				break;
+
+			case '%':
+				name = "percent";
+
+				break;
+
+			case '&':
+				name = "ampersand";
+
+				break;
+
+			case '\'':
+				name = "single_quote";
+
+				break;
+
+			case '(':
+				name = "round_bracket_l";
+
+				break;
+
+			case ')':
+				name = "round_bracket_r";
+
+				break;
+
+			case '*':
+				name = "asterisk";
+
+				break;
+
+			case '+':
+				name = "plus";
+
+				break;
+
+			case ',':
+				name = "comma";
+
+				break;
+
+			case '-':
+				name = "minus";
+
+				break;
+
+			case '.':
+				name = "period";
+
+				break;
+
+			case '/':
+				name = "fwd_slash";
+
+				break;
+
+			case ':':
+				name = "colon";
+
+				break;
+
+			case ';':
+				name = "semi_colon";
+
+				break;
+
+			case '<':
+				name = "less_than";
+
+				break;
+
+			case '=':
+				name = "equals";
+
+				break;
+
+			case '>':
+				name = "greater_than";
+
+				break;
+
+			case '?':
+				name = "question";
+
+				break;
+
+			case '@':
+				name = "at";
+
+				break;
+
+			case '[':
+				name = "sq_bracket_l";
+
+				break;
+
+			case ']':
+				name = "sq_bracket_r";
+
+				break;
+
+			case '^':
+				name = "carat";
+
+				break;
+
+			case '_':
+				name = "underscore";
+
+				break;
+
+			case '`':
+				name = "back_tick";
+
+				break;
+
+			case '{':
+				name = "curly_bracket_l";
+
+				break;
+
+			case '|':
+				name = "pipe";
+
+				break;
+
+			case '}':
+				name = "curly_bracket_r";
+
+				break;
+
+			case '~':
+				name = "tilde";
+
+				break;
+		}
+	}
+
+	return name;
+}

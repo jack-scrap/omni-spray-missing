@@ -76,6 +76,8 @@ int main(int argc, char* argv[]) {
 
 	char c = argv[1][0];
 
+	std::string name = util::glyphName(c);
+
 	// data
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -86,14 +88,14 @@ int main(int argc, char* argv[]) {
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	std::vector<GLfloat> vtc = util::rdAttr(std::string(1, c), 0);
+	std::vector<GLfloat> vtc = util::rdAttr(name, 0);
 	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
 
 	GLuint ibo;
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-	std::vector<GLushort> idc = util::rdIdc(std::string(1, c), 0);
+	std::vector<GLushort> idc = util::rdIdc(name, 0);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
 
 	// matrix
