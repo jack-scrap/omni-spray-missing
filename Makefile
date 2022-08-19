@@ -3,7 +3,7 @@ CXX=g++
 SRCDIR=.
 BUILDDIR=build
 
-STATIC=main.cpp disp.cpp prog.cpp util.cpp
+STATIC=main.cpp disp.cpp prog.cpp glyph.cpp util.cpp
 OBJ_STATIC=$(patsubst %.cpp, $(BUILDDIR)/%.o, $(STATIC))
 
 HDR=col.h layout.h

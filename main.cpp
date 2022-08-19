@@ -13,6 +13,7 @@
 #include "util.h"
 #include "col.h"
 #include "layout.h"
+#include "glyph.h"
 
 bool scr(std::string filepath, SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer) {
 	SDL_Surface* saveSurface = NULL;
@@ -76,50 +77,12 @@ int main(int argc, char* argv[]) {
 
 	char c = argv[1][0];
 
-	std::string name = util::glyphName(c);
-
-	// data
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	// position
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-	std::vector<GLfloat> vtc = util::rdAttr(name, 0);
-	glBufferData(GL_ARRAY_BUFFER, vtc.size() * sizeof (GLfloat), &vtc[0], GL_STATIC_DRAW);
-
-	GLuint ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-
-	std::vector<GLushort> idc = util::rdIdc(name, 0);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idc.size() * sizeof (GLushort), &idc[0], GL_STATIC_DRAW);
-
-	// matrix
-	glm::mat4 model = glm::mat4(1.0);
-
-	// shader
-	Prog prog("shad", "shad");
-
-	/// attribute
-	GLint attrPos = glGetAttribLocation(prog._id, "pos");
-	glVertexAttribPointer(attrPos, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
-	glEnableVertexAttribArray(attrPos);
-
-	/// uniform
-	GLint uniModel = glGetUniformLocation(prog._id, "model");
+	Glyph glyph(c);
 
 	// initialize
-	prog.use();
-
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-
 	disp.clear(col[true].r / 255.0, col[true].g / 255.0, col[true].b / 255.0, 1);
 
-	glDrawElements(GL_TRIANGLES, idc.size(), GL_UNSIGNED_SHORT, (GLvoid*) 0);
+	glyph.draw();
 
 	disp.update();
 
