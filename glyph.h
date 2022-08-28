@@ -16,7 +16,7 @@ class Glyph {
 		GLuint _uniModel;
 
 	public:
-		Glyph(char c);
+		Glyph(char c, unsigned int i);
 
 		void draw();
 };

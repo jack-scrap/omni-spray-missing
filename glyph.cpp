@@ -1,8 +1,10 @@
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 
 #include "glyph.h"
 
-Glyph::Glyph(char c) :
+Glyph::Glyph(char c, unsigned int i) :
 	_prog("shad", "shad") {
 		std::string name = util::glyphName(c);
 
@@ -30,6 +32,7 @@ Glyph::Glyph(char c) :
 
 		// matrix
 		_model = glm::mat4(1.0);
+		_model = glm::translate(_model, glm::vec3(i * 0.5, 0.0, 0.0));
 
 		_prog.use();
 
@@ -41,13 +44,13 @@ Glyph::Glyph(char c) :
 		/// uniform
 		_uniModel = glGetUniformLocation(_prog._id, "model");
 
+		glUniformMatrix4fv(_uniModel, 1, GL_FALSE, glm::value_ptr(_model));
+
 		_prog.unUse();
 	}
 
 void Glyph::draw() {
 	_prog.use();
-
-	glUniformMatrix4fv(_uniModel, 1, GL_FALSE, glm::value_ptr(_model));
 
 	glDrawElements(GL_TRIANGLES, _noIdc, GL_UNSIGNED_SHORT, (GLvoid*) 0);
 

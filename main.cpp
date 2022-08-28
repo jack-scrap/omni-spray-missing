@@ -77,12 +77,20 @@ int main(int argc, char* argv[]) {
 
 	char c = argv[1][0];
 
-	Glyph glyph(c);
+	std::cout << c << std::endl;
+
+	/* Glyph glyph('\'', 0); */
+
+	Glyph glyph1(c, 1);
+
+	/* Glyph glyph2('\'', 2); */
 
 	// initialize
 	disp.clear(col[true].r / 255.0, col[true].g / 255.0, col[true].b / 255.0, 1);
 
-	glyph.draw();
+	/* glyph.draw(); */
+	glyph1.draw();
+	/* glyph2.draw(); */
 
 	disp.update();
 
