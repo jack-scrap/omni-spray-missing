@@ -3,6 +3,10 @@ CXX=g++
 SRCDIR=.
 BUILDDIR=build
 
+PREFIX:=/usr/local
+
+BINDIR:=$(PREFIX)/bin
+
 STATIC=main.cpp disp.cpp prog.cpp glyph.cpp util.cpp
 OBJ_STATIC=$(patsubst %.cpp, $(BUILDDIR)/%.o, $(STATIC))
 
@@ -31,6 +35,10 @@ mk_build:
 .PHONY: mk_o
 mk_o:
 	mkdir -p o
+
+.PHONY: install
+install:
+	sudo cp omni_spray_glyph $(BINDIR)
 
 .PHONY: clean
 clean:
