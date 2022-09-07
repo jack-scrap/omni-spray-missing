@@ -13,7 +13,7 @@ LDFLAGS+=-lSDL2
 LDFLAGS+=-lpng
 
 .PHONY: all
-all: mk_build mk_o make
+all: mk_build mk_o omni_spray_glyph
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(CXX) -c $< -o $@ $(LDFLAGS)
@@ -21,9 +21,8 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 $(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
-.PHONY: make
-make: $(OBJ_STATIC) $(HDR)
-	$(CXX) $(OBJ_STATIC) $(LDFLAGS)
+omni_spray_glyph: $(OBJ_STATIC) $(HDR)
+	$(CXX) $(OBJ_STATIC) $(LDFLAGS) -o $@
 
 .PHONY: mk_build
 mk_build:
