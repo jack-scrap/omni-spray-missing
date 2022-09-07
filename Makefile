@@ -35,4 +35,4 @@ mk_o:
 
 .PHONY: clean
 clean:
-	rm $(BUILDDIR)/*.o a.out
+	rm $(BUILDDIR)/*.o omni_spray_glyph
