@@ -23,7 +23,7 @@ $(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
 
 .PHONY: make
 make: $(OBJ_STATIC) $(HDR)
-	$(CXX) $^ $(LDFLAGS)
+	$(CXX) $(OBJ_STATIC) $(LDFLAGS)
 
 .PHONY: mk_build
 mk_build:
