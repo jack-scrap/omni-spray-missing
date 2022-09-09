@@ -1,6 +1,5 @@
 CXX=g++
 
-SRCDIR=.
 BUILDDIR=build
 
 PREFIX:=/usr/local
@@ -19,10 +18,10 @@ LDFLAGS+=-lpng
 .PHONY: all
 all: mk_build mk_o omni_spray_glyph
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
+$(BUILDDIR)/%.o: %.cpp %.h
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
-$(BUILDDIR)/main.o: $(SRCDIR)/main.cpp
+$(BUILDDIR)/main.o: main.cpp
 	$(CXX) -c $< -o $@ $(LDFLAGS)
 
 omni_spray_glyph: $(OBJ_STATIC) $(HDR)
