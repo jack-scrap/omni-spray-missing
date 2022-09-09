@@ -11,9 +11,7 @@ OBJ_STATIC=$(patsubst %.cpp, $(BUILDDIR)/%.o, $(STATIC))
 
 HDR=col.h layout.h
 
-LDFLAGS+=-lGLEW -lGL
-LDFLAGS+=-lSDL2
-LDFLAGS+=-lpng
+LDFLAGS=-lGLEW -lGL -lSDL2 -lpng
 
 .PHONY: all
 all: mk_build mk_o omni_spray_glyph
