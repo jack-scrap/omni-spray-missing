@@ -1,11 +1,11 @@
 #version 400
 
-in vec3 pos;
+in vec2 pos;
 
-out vec3 _pos;
+out vec2 _pos;
 
 void main() {
-	gl_Position = vec4(pos, 1.0);
+	gl_Position = vec4(pos, 0.0, 1.0);
 
-	_pos = pos * vec3(1, -1, 1);
+	_pos = pos * vec2(1, -1);
 }

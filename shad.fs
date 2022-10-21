@@ -1,6 +1,6 @@
 #version 400
 
-in vec3 _pos;
+in vec2 _pos;
 
 const float stride = 1.0;
 
