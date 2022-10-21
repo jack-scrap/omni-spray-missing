@@ -63,14 +63,8 @@ bool scr(std::string filepath, SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer)
 int main(int argc, char* argv[]) {
 	Disp disp("asdf", 100, 100);
 
-	if (argc != 2) {
+	if (argc != 1) {
 		std::cout << "Error: Wrong number of arguments" << std::endl;
-
-		return 1;
-	}
-
-	if (strlen(argv[1]) > 1) {
-		std::cout << "Error: Length of argument longer than one" << std::endl;
 
 		return 1;
 	}
