@@ -75,18 +75,44 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	char c = argv[1][0];
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
-	Glyph glyph(c, 1);
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	// initialize
+	GLfloat vtc[3 * 2 * 2] = {
+		-1.0, -1.0,
+		1.0, -1.0,
+		-1.0, 1.0,
+
+		-1.0, 1.0,
+		1.0, -1.0,
+		1.0, 1.0
+	};
+	glBufferData(GL_ARRAY_BUFFER, sizeof vtc, vtc, GL_STATIC_DRAW);
+
+	Prog prog("shad", "shad");
+
+	GLint attrPos = glGetAttribLocation(prog._id, "pos");
+	glVertexAttribPointer(attrPos, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
+	glEnableVertexAttribArray(attrPos);
+
 	disp.clear(col[true].r / 255.0, col[true].g / 255.0, col[true].b / 255.0, 1);
 
-	glyph.draw();
+	glBindVertexArray(vao);
+	prog.use();
+
+	glDrawArrays(GL_TRIANGLES, 0, 3 * 2);
+
+	prog.unUse();
+	glBindVertexArray(0);
 
 	disp.update();
 
-	std::string path = std::string(std::string("o/") + std::string(1, c) + ".bmp");
+	std::string path = std::string("o/missing.bmp");
 
 	if (!scr(path.c_str(), disp.win, disp.rend)) {
 		std::cout << "Error: Couldn't save renderbuffer" << std::endl;
