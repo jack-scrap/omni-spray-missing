@@ -63,10 +63,15 @@ bool scr(std::string filepath, SDL_Window* SDLWindow, SDL_Renderer* SDLRenderer)
 int main(int argc, char* argv[]) {
 	Disp disp("asdf", 100, 100);
 
-	if (argc != 1) {
+	if (argc != 1 && argc != 1 + 1) {
 		std::cout << "Error: Wrong number of arguments" << std::endl;
 
 		return 1;
+	}
+
+	unsigned int pow = 1;
+	if (argc == 1 + 1) {
+		pow = std::stoi(argv[1]);
 	}
 
 	GLuint vao;
@@ -90,9 +95,16 @@ int main(int argc, char* argv[]) {
 
 	Prog prog("shad", "shad");
 
+	prog.use();
+
 	GLint attrPos = glGetAttribLocation(prog._id, "pos");
 	glVertexAttribPointer(attrPos, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
 	glEnableVertexAttribArray(attrPos);
+
+	GLint uniPow = glGetUniformLocation(prog._id, "pow");
+	glUniform1ui(uniPow, pow);
+
+	prog.unUse();
 
 	disp.clear(col[true].r / 255.0, col[true].g / 255.0, col[true].b / 255.0, 1);
 
